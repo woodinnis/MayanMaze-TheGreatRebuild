@@ -16,8 +16,12 @@ public class Arrow : MonoBehaviour {
         transform = GetComponent<Transform>();
 	}
 
-    void OnTriggerEnter2D() {
-        //  Change player direction based on the type of (tag) arrow
+    //  Change player direction when they collide with an arrow
+    void OnTriggerEnter2D(Collider2D collider) {
+        //  Reset player position to match the Arrow tile.
+        player.transform.position = transform.position;     //  This needs to be smoothed out during polish. But it works for now
+
+        //  Check arrow tag and change player direction accordingly
         switch (tag)
         {
             case "DownArrow":

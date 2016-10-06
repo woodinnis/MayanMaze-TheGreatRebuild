@@ -74,4 +74,13 @@ public class Player : MonoBehaviour {
             isMovingTowards = true;
         }
     }
+
+    Vector2 SnapToGrid(Vector2 rawWorldPos)
+    {
+        //  Snap tiles to the gamespace grid
+        float newX = Mathf.RoundToInt(rawWorldPos.x);
+        float newY = Mathf.RoundToInt(rawWorldPos.y);
+
+        return new Vector2(newX, newY);
+    }
 }
