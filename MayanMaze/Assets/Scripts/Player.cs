@@ -9,36 +9,46 @@ public class Player : MonoBehaviour {
     public Direction playerDirection;
 
     private Transform transform;
-    private float realMoveSpeed;
- 
+    private bool isMovingTowards = true;
+
     // Use this for initialization
     void Start () {
         transform = GetComponent<Transform>();
-        realMoveSpeed = playerMoveSpeed / 100;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        
+	void FixedUpdate () {
         //  Move player based on playerDirection
         switch (playerDirection)
         {
             case Direction.DOWN:
-                transform.position += Vector3.down * realMoveSpeed;
+                transform.position += Vector3.down * playerMoveSpeed * Time.deltaTime;
                 break;
             case Direction.UP:
-                transform.position += Vector3.up * realMoveSpeed;
+                transform.position += Vector3.up * playerMoveSpeed * Time.deltaTime;
                 break;
             case Direction.LEFT:
-                transform.position += Vector3.left * realMoveSpeed;
+                transform.position += Vector3.left * playerMoveSpeed * Time.deltaTime;
                 break;
             case Direction.RIGHT:
-                transform.position += Vector3.right * realMoveSpeed;
+                transform.position += Vector3.right * playerMoveSpeed * Time.deltaTime;
                 break;
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
+    {
+        //  Check player is moving towards a wall
+        if (isMovingTowards)
+        {
+            //  Change player movement state
+            isMovingTowards = false;
+            //  Change player direction
+            ChangePlayerDirection();
+        }
+    }
+
+    private void ChangePlayerDirection()
     {
         switch (playerDirection)
         {
@@ -57,25 +67,11 @@ public class Player : MonoBehaviour {
         }
     }
 
-    void OnCollisionStay2D()
+    void OnCollisionExit2D()
     {
-        float resetPosition = 1;
-        switch (playerDirection)
+        if (!isMovingTowards)
         {
-            case Direction.DOWN:
-                print("Stuck Moving " + playerDirection.ToString());
-                break;
-            case Direction.UP:
-                print("Stuck Moving " + playerDirection.ToString());
-                break;
-            case Direction.LEFT:
-                print("Stuck Moving " + playerDirection.ToString());
-                break;
-            case Direction.RIGHT:
-                print("Stuck Moving " + playerDirection.ToString());
-                break;
+            isMovingTowards = true;
         }
     }
-
-    // TODO: Create playerChangeDirection() to centralize direction changes
 }
