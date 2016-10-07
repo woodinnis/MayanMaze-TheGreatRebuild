@@ -6,9 +6,14 @@ public class LevelManager : MonoBehaviour {
 
     public float autoLoadNextLevelAfter;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(this.transform);
+    }
+
     void Start() {
         
-        //Invoke("LoadNextLevel", autoLoadNextLevelAfter);
+        Invoke("LoadNextLevel", autoLoadNextLevelAfter);
     }
 	public void LoadLevel(string name){
         SceneManager.LoadScene(name);
