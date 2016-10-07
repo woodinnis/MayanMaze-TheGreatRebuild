@@ -25,13 +25,6 @@ public class LevelManager : MonoBehaviour {
     //  Restart a level
     public void RestartLevel()
     {
-        //  Get currently loaded scene;
-        //Scene scene = SceneManager.GetActiveScene();
-
-        //print(scene.ToString());
-        //  Unload the scene
-        //SceneManager.UnloadScene(scene);
-
         //  Reload the scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
