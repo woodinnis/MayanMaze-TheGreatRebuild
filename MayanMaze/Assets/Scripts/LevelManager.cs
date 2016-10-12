@@ -5,6 +5,8 @@ using System.Collections;
 public class LevelManager : MonoBehaviour {
 
     public float autoLoadNextLevelAfter;
+    public Object startScene;
+    public Object finalScene;
 
     void Awake()
     {
@@ -15,6 +17,16 @@ public class LevelManager : MonoBehaviour {
         
         Invoke("LoadNextLevel", autoLoadNextLevelAfter);
     }
+
+    //  This event is being deprecated
+    void OnLevelWasLoaded()
+    {
+        if(SceneManager.GetActiveScene().name == finalScene.name)
+        {
+            Invoke("GoToStart", autoLoadNextLevelAfter);
+        }
+    }
+
 	public void LoadLevel(string name){
         SceneManager.LoadScene(name);
 	}
@@ -33,5 +45,11 @@ public class LevelManager : MonoBehaviour {
         //  Reload the scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
+    }
+
+    //  Return to the Start menu
+    public void GoToStart()
+    {
+        SceneManager.LoadScene(startScene.name);
     }
 }
