@@ -26,6 +26,8 @@ extern "C"  void LevelManager__ctor_m1225645824 (LevelManager_t3355282079 * __th
 extern "C"  void LevelManager_Awake_m3116043147 (LevelManager_t3355282079 * __this, const MethodInfo* method) IL2CPP_METHOD_ATTR;
 // System.Void LevelManager::Start()
 extern "C"  void LevelManager_Start_m2304508908 (LevelManager_t3355282079 * __this, const MethodInfo* method) IL2CPP_METHOD_ATTR;
+// System.Void LevelManager::OnLevelWasLoaded()
+extern "C"  void LevelManager_OnLevelWasLoaded_m3846416895 (LevelManager_t3355282079 * __this, const MethodInfo* method) IL2CPP_METHOD_ATTR;
 // System.Void LevelManager::LoadLevel(System.String)
 extern "C"  void LevelManager_LoadLevel_m3771066388 (LevelManager_t3355282079 * __this, String_t* ___name0, const MethodInfo* method) IL2CPP_METHOD_ATTR;
 // System.Void LevelManager::QuitRequest()
@@ -34,3 +36,5 @@ extern "C"  void LevelManager_QuitRequest_m3014183236 (LevelManager_t3355282079 
 extern "C"  void LevelManager_LoadNextLevel_m4205287453 (LevelManager_t3355282079 * __this, const MethodInfo* method) IL2CPP_METHOD_ATTR;
 // System.Void LevelManager::RestartLevel()
 extern "C"  void LevelManager_RestartLevel_m2093838899 (LevelManager_t3355282079 * __this, const MethodInfo* method) IL2CPP_METHOD_ATTR;
+// System.Void LevelManager::GoToStart()
+extern "C"  void LevelManager_GoToStart_m1084643481 (LevelManager_t3355282079 * __this, const MethodInfo* method) IL2CPP_METHOD_ATTR;

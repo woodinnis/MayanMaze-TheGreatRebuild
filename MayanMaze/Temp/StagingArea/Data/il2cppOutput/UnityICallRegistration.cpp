@@ -1,4 +1,4 @@
-//Generated on : 2016-10-11 21:41:36
+//Generated on : 2016-10-12 13:25:31
 void RegisterAllStrippedInternalCalls()
 {
 	//Start Registrations for type : UnityEngine.AnimationCurve

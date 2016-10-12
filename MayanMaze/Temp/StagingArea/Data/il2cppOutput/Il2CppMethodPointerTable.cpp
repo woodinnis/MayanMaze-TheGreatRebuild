@@ -10388,10 +10388,12 @@ extern "C" void Hole_OnTriggerEnter2D_m3578010857 ();
 extern "C" void LevelManager__ctor_m1225645824 ();
 extern "C" void LevelManager_Awake_m3116043147 ();
 extern "C" void LevelManager_Start_m2304508908 ();
+extern "C" void LevelManager_OnLevelWasLoaded_m3846416895 ();
 extern "C" void LevelManager_LoadLevel_m3771066388 ();
 extern "C" void LevelManager_QuitRequest_m3014183236 ();
 extern "C" void LevelManager_LoadNextLevel_m4205287453 ();
 extern "C" void LevelManager_RestartLevel_m2093838899 ();
+extern "C" void LevelManager_GoToStart_m1084643481 ();
 extern "C" void MainMenu__ctor_m2536434407 ();
 extern "C" void MainMenu_Start_m373035227 ();
 extern "C" void MainMenu_TaskOnClick_m1988192117 ();
@@ -10405,7 +10407,7 @@ extern "C" void Player_SnapToGrid_m3372292812 ();
 extern "C" void Restart__ctor_m56152370 ();
 extern "C" void Restart_Start_m3531414698 ();
 extern "C" void Restart_TaskOnClick_m2016347918 ();
-extern const Il2CppMethodPointer g_MethodPointers[10394] = 
+extern const Il2CppMethodPointer g_MethodPointers[10396] = 
 {
 	Locale_GetText_m1954433032,
 	Locale_GetText_m2553164138,
@@ -20784,10 +20786,12 @@ extern const Il2CppMethodPointer g_MethodPointers[10394] =
 	LevelManager__ctor_m1225645824,
 	LevelManager_Awake_m3116043147,
 	LevelManager_Start_m2304508908,
+	LevelManager_OnLevelWasLoaded_m3846416895,
 	LevelManager_LoadLevel_m3771066388,
 	LevelManager_QuitRequest_m3014183236,
 	LevelManager_LoadNextLevel_m4205287453,
 	LevelManager_RestartLevel_m2093838899,
+	LevelManager_GoToStart_m1084643481,
 	MainMenu__ctor_m2536434407,
 	MainMenu_Start_m373035227,
 	MainMenu_TaskOnClick_m1988192117,

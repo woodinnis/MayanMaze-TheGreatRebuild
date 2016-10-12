@@ -82,9 +82,10 @@ struct Restart_t607578745;
 #include "AssemblyU2DCSharp_Hole686167798.h"
 #include "AssemblyU2DCSharp_Hole686167798MethodDeclarations.h"
 #include "UnityEngine_UnityEngine_SceneManagement_SceneManager90660965MethodDeclarations.h"
-#include "UnityEngine_UnityEngine_Application354826772MethodDeclarations.h"
 #include "UnityEngine_UnityEngine_SceneManagement_Scene1684909666MethodDeclarations.h"
+#include "mscorlib_System_String2029220233MethodDeclarations.h"
 #include "UnityEngine_UnityEngine_SceneManagement_Scene1684909666.h"
+#include "UnityEngine_UnityEngine_Application354826772MethodDeclarations.h"
 #include "AssemblyU2DCSharp_MainMenu4009084430.h"
 #include "AssemblyU2DCSharp_MainMenu4009084430MethodDeclarations.h"
 #include "UnityEngine_UI_UnityEngine_UI_Button2872111280MethodDeclarations.h"
@@ -524,6 +525,43 @@ extern "C"  void LevelManager_Start_m2304508908 (LevelManager_t3355282079 * __th
 		return;
 	}
 }
+// System.Void LevelManager::OnLevelWasLoaded()
+extern Il2CppClass* String_t_il2cpp_TypeInfo_var;
+extern Il2CppCodeGenString* _stringLiteral3227887391;
+extern const uint32_t LevelManager_OnLevelWasLoaded_m3846416895_MetadataUsageId;
+extern "C"  void LevelManager_OnLevelWasLoaded_m3846416895 (LevelManager_t3355282079 * __this, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodIntialized;
+	if (!s_Il2CppMethodIntialized)
+	{
+		il2cpp_codegen_initialize_method (LevelManager_OnLevelWasLoaded_m3846416895_MetadataUsageId);
+		s_Il2CppMethodIntialized = true;
+	}
+	Scene_t1684909666  V_0;
+	memset(&V_0, 0, sizeof(V_0));
+	{
+		Scene_t1684909666  L_0 = SceneManager_GetActiveScene_m2964039490(NULL /*static, unused*/, /*hidden argument*/NULL);
+		V_0 = L_0;
+		String_t* L_1 = Scene_get_name_m745914591((&V_0), /*hidden argument*/NULL);
+		Object_t1021602117 * L_2 = __this->get_finalScene_4();
+		String_t* L_3 = Object_get_name_m2079638459(L_2, /*hidden argument*/NULL);
+		IL2CPP_RUNTIME_CLASS_INIT(String_t_il2cpp_TypeInfo_var);
+		bool L_4 = String_op_Equality_m1790663636(NULL /*static, unused*/, L_1, L_3, /*hidden argument*/NULL);
+		if (!L_4)
+		{
+			goto IL_0033;
+		}
+	}
+	{
+		float L_5 = __this->get_autoLoadNextLevelAfter_2();
+		MonoBehaviour_Invoke_m666563676(__this, _stringLiteral3227887391, L_5, /*hidden argument*/NULL);
+	}
+
+IL_0033:
+	{
+		return;
+	}
+}
 // System.Void LevelManager::LoadLevel(System.String)
 extern "C"  void LevelManager_LoadLevel_m3771066388 (LevelManager_t3355282079 * __this, String_t* ___name0, const MethodInfo* method)
 {
@@ -563,6 +601,16 @@ extern "C"  void LevelManager_RestartLevel_m2093838899 (LevelManager_t3355282079
 		Scene_t1684909666  L_0 = SceneManager_GetActiveScene_m2964039490(NULL /*static, unused*/, /*hidden argument*/NULL);
 		V_0 = L_0;
 		String_t* L_1 = Scene_get_name_m745914591((&V_0), /*hidden argument*/NULL);
+		SceneManager_LoadScene_m1619949821(NULL /*static, unused*/, L_1, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void LevelManager::GoToStart()
+extern "C"  void LevelManager_GoToStart_m1084643481 (LevelManager_t3355282079 * __this, const MethodInfo* method)
+{
+	{
+		Object_t1021602117 * L_0 = __this->get_startScene_3();
+		String_t* L_1 = Object_get_name_m2079638459(L_0, /*hidden argument*/NULL);
 		SceneManager_LoadScene_m1619949821(NULL /*static, unused*/, L_1, /*hidden argument*/NULL);
 		return;
 	}

@@ -1446,7 +1446,7 @@
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-extern const int32_t g_FieldOffsetTable[6389] = 
+extern const int32_t g_FieldOffsetTable[6391] = 
 {
 	0,
 	0,
@@ -7823,6 +7823,8 @@ extern const int32_t g_FieldOffsetTable[6389] =
 	Hole_t686167798::get_offset_of_levelManager_4(),
 	Hole_t686167798::get_offset_of_scene_5(),
 	LevelManager_t3355282079::get_offset_of_autoLoadNextLevelAfter_2(),
+	LevelManager_t3355282079::get_offset_of_startScene_3(),
+	LevelManager_t3355282079::get_offset_of_finalScene_4(),
 	MainMenu_t4009084430::get_offset_of_button_2(),
 	MainMenu_t4009084430::get_offset_of_levelManager_3(),
 	MainMenu_t4009084430_StaticFields::get_offset_of_U3CU3Ef__switchU24map1_4(),

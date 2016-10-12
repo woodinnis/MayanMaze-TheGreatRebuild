@@ -3264,6 +3264,7 @@ extern const Il2CppType Object_t1021602117_0_0_0 = { (void*)1262, 0, IL2CPP_TYPE
 extern const Il2CppType Object_t1021602117_1_0_0 = { (void*)1262, 0, IL2CPP_TYPE_CLASS, 0, 1, 0 };
 extern const Il2CppType Object_t1021602117_0_0_3 = { (void*)1262, 3, IL2CPP_TYPE_CLASS, 0, 0, 0 };
 extern const Il2CppType Object_t1021602117_0_0_1 = { (void*)1262, 1, IL2CPP_TYPE_CLASS, 0, 0, 0 };
+extern const Il2CppType Object_t1021602117_0_0_6 = { (void*)1262, 6, IL2CPP_TYPE_CLASS, 0, 0, 0 };
 
 Il2CppGenericClass InternalEnumerator_1_t1880354379_GenericClass = { 41, { &GenInst_Object_t1021602117_0_0_0, NULL }, NULL };
 extern const Il2CppType InternalEnumerator_1_t1880354379_0_0_0 = { &InternalEnumerator_1_t1880354379_GenericClass, 0, IL2CPP_TYPE_GENERICINST, 0, 0, 0 };
@@ -13085,7 +13086,7 @@ extern const Il2CppType TypeTagU5BU5D_t582616213_0_0_0 = { (void*)&TypeTag_t1412
 
 extern const Il2CppType ITrackingHandler_t2759960940_0_0_0;
 extern const Il2CppType ITrackingHandlerU5BU5D_t194660197_0_0_0 = { (void*)&ITrackingHandler_t2759960940_0_0_0, 0, IL2CPP_TYPE_SZARRAY, 0, 0, 0 };
-extern const Il2CppType* const  g_Il2CppTypeTable[6949] = 
+extern const Il2CppType* const  g_Il2CppTypeTable[6950] = 
 {
 	&IEnumerator_1_t164973122_0_0_0,
 	&Il2CppObject_0_0_0,
@@ -19968,6 +19969,7 @@ extern const Il2CppType* const  g_Il2CppTypeTable[6949] =
 	&Scene_t1684909666_0_0_1,
 	&LevelManager_t3355282079_0_0_0,
 	&LevelManager_t3355282079_1_0_0,
+	&Object_t1021602117_0_0_6,
 	&MainMenu_t4009084430_0_0_0,
 	&MainMenu_t4009084430_1_0_0,
 	&Button_t2872111280_0_0_1,
