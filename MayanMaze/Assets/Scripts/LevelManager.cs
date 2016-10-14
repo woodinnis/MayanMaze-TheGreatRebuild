@@ -35,6 +35,11 @@ public class LevelManager : MonoBehaviour {
 		Application.Quit();
 	}
 	
+    public string GetCurrentLevel()
+    {
+        return SceneManager.GetActiveScene().name;
+    }
+
 	public void LoadNextLevel(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
