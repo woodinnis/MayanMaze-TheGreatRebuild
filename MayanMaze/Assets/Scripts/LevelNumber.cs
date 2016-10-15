@@ -12,7 +12,7 @@ public class LevelNumber : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         text = GetComponent<Text>();
-        levelManager = FindObjectOfType<LevelManager>();
+        levelManager = GameObject.FindObjectOfType<LevelManager>();
 
         //  Get the name of the current level
         string currentLevel = levelManager.GetCurrentLevel();
