@@ -4,32 +4,37 @@ using System.Collections;
 
 public class Tutorial : MonoBehaviour {
 
-    public Object[] checkLevels;
+    public string[] checkLevels;
     public string[] tutorialMessages;
 
     private LevelManager levelManager;
     private Text text;
 
 	// Use this for initialization
-	void Start () {
-
+	void Start ()
+    {
         levelManager = GameObject.FindObjectOfType<LevelManager>();
         text = GetComponent<Text>();
 
+        DisplayCurrentTutorial();
+    }
+
+    private void DisplayCurrentTutorial()
+    {
         string currentLevel = levelManager.GetCurrentLevel();
 
         int index = 0;
 
         //  Search each array element
-        foreach(Object level in checkLevels)
+        foreach (string level in checkLevels)
         {
             //  When a matching level name and tutorial message are found, display the message.
-            if(level.name == currentLevel)
+            if (level == currentLevel)
             {
                 text.text = tutorialMessages[index];
                 break;
             }
             ++index;
         }
-	}
+    }
 }
