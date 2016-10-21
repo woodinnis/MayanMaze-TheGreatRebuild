@@ -5,8 +5,8 @@ using System.Collections;
 public class LevelManager : MonoBehaviour {
 
     public float autoLoadNextLevelAfter;
-    public Object startScene;
-    public Object finalScene;
+    public string startScene;
+    public string finalScene;
 
     void Awake()
     {
@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour {
     //  This event is being deprecated
     void OnLevelWasLoaded()
     {
-        if(SceneManager.GetActiveScene().name == finalScene.name)
+        if(SceneManager.GetActiveScene().name == finalScene)
         {
             Invoke("GoToStart", autoLoadNextLevelAfter);
         }
@@ -55,6 +55,6 @@ public class LevelManager : MonoBehaviour {
     //  Return to the Start menu
     public void GoToStart()
     {
-        SceneManager.LoadScene(startScene.name);
+        SceneManager.LoadScene(startScene);
     }
 }
