@@ -22,16 +22,16 @@ public class Player : MonoBehaviour {
         switch (playerDirection)
         {
             case Direction.DOWN:
-                transform.position += Vector3.down * playerMoveSpeed * Time.deltaTime;
+                transform.Translate(Vector2.down * playerMoveSpeed * Time.deltaTime, Space.World);
                 break;
             case Direction.UP:
-                transform.position += Vector3.up * playerMoveSpeed * Time.deltaTime;
+                transform.Translate(Vector2.up * playerMoveSpeed * Time.deltaTime, Space.World);
                 break;
             case Direction.LEFT:
-                transform.position += Vector3.left * playerMoveSpeed * Time.deltaTime;
+                transform.Translate(Vector2.left * playerMoveSpeed * Time.deltaTime, Space.World);
                 break;
             case Direction.RIGHT:
-                transform.position += Vector3.right * playerMoveSpeed * Time.deltaTime;
+                transform.Translate(Vector2.right * playerMoveSpeed * Time.deltaTime, Space.World);
                 break;
         }
     }
