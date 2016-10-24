@@ -18,8 +18,28 @@ public class Arrow : MonoBehaviour {
 
     //  Change player direction when they collide with an arrow
     void OnTriggerEnter2D(Collider2D collider) {
+
+        //  Create a new Vector2 and assign the value of the player's movement speed
+        //  This was an attempt to utilize Vector2.SmoothDamp() to smooth out the player movement on to an arrow tile.
+        //Vector2 moveSpeed = new Vector2(0, 0);
+        //if (player.playerDirection == Player.Direction.DOWN || player.playerDirection == Player.Direction.UP)
+        //    moveSpeed = new Vector2(0.0f, player.playerMoveSpeed);
+        //if (player.playerDirection == Player.Direction.LEFT || player.playerDirection == Player.Direction.RIGHT)
+        //    moveSpeed = new Vector2(player.playerMoveSpeed, 0.0f);
+
+        //  Using Vector2.Lerp looks more promising, but has been unsuccessful so far. Converting a Vector2 to a float is the current hurdle
+        //player.transform.position = Vector2.Lerp(player.transform.position, transform.position, player.transform.position);
+
+
+        print("Player Norm: " + player.transform.position.normalized);
+
         //  Reset player position to match the Arrow tile.
         player.transform.position = transform.position;     //  This needs to be smoothed out during polish. But it works for now
+
+        print("Player: " + player.transform.position);
+        print("Player Norm: " + player.transform.position.normalized);
+        print("Arrow: " + transform.position);
+
 
         //  Check arrow tag and change player direction accordingly
         switch (tag)

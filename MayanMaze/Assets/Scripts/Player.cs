@@ -19,6 +19,7 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
         //  Move player based on playerDirection
+
         switch (playerDirection)
         {
             case Direction.DOWN:
@@ -80,6 +81,8 @@ public class Player : MonoBehaviour {
         //  Snap tiles to the gamespace grid
         float newX = Mathf.RoundToInt(rawWorldPos.x);
         float newY = Mathf.RoundToInt(rawWorldPos.y);
+
+        
 
         return new Vector2(newX, newY);
     }
