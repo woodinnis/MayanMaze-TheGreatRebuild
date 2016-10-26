@@ -7,6 +7,10 @@ public class Arrow : MonoBehaviour {
     private Transform transform;
     private Camera myCamera;
 
+    private float moveSpeed = 0.8f;
+    public float recenterAt = 0.1f;
+    private bool playerIsApproaching = true;
+
     // Use this for initialization
     void Start () {
         //  Get the player information
@@ -17,31 +21,15 @@ public class Arrow : MonoBehaviour {
 	}
 
     //  Change player direction when they collide with an arrow
-    void OnTriggerEnter2D(Collider2D collider) {
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        //  The section of code working on smoothing movement onto an arrow tile has been extracted and the call commented out
+        //  It can be reintegrated in some fashion later in development
+        //  PlayerTrasitionSmoothing();
 
-        //  Create a new Vector2 and assign the value of the player's movement speed
-        //  This was an attempt to utilize Vector2.SmoothDamp() to smooth out the player movement on to an arrow tile.
-        //Vector2 moveSpeed = new Vector2(0, 0);
-        //if (player.playerDirection == Player.Direction.DOWN || player.playerDirection == Player.Direction.UP)
-        //    moveSpeed = new Vector2(0.0f, player.playerMoveSpeed);
-        //if (player.playerDirection == Player.Direction.LEFT || player.playerDirection == Player.Direction.RIGHT)
-        //    moveSpeed = new Vector2(player.playerMoveSpeed, 0.0f);
+        //  Snap the player to the position.x/y of the arrow tile
+        player.transform.position = transform.position;
 
-        //  Using Vector2.Lerp looks more promising, but has been unsuccessful so far. Converting a Vector2 to a float is the current hurdle
-        //player.transform.position = Vector2.Lerp(player.transform.position, transform.position, player.transform.position);
-
-
-        print("Player Norm: " + player.transform.position.normalized);
-
-        //  Reset player position to match the Arrow tile.
-        player.transform.position = transform.position;     //  This needs to be smoothed out during polish. But it works for now
-
-        print("Player: " + player.transform.position);
-        print("Player Norm: " + player.transform.position.normalized);
-        print("Arrow: " + transform.position);
-
-
-        //  Check arrow tag and change player direction accordingly
         switch (tag)
         {
             case "DownArrow":
@@ -58,6 +46,57 @@ public class Arrow : MonoBehaviour {
                 break;
         }
     }
+
+    private void PlayerTrasitionSmoothing()
+    {
+        Vector2 fast = Vector2.zero;
+
+        //  This seems to work just fine
+        player.transform.position = Vector2.SmoothDamp(player.transform.position, transform.position, ref fast, moveSpeed);
+
+        print("Player before: " + player.transform.position);
+        print("Arrow before: " + this.transform.position);
+
+        //  Check player proximity to arrow tile x,y center and recenter when close
+        //  So far this hasn't been tuned in any way that works functionally with changing direction
+        if (player.transform.position.x <= (transform.position.x - recenterAt) ||
+            player.transform.position.y <= (transform.position.y - recenterAt))
+            player.transform.position = transform.position;
+
+        if (player.transform.position.x >= (transform.position.x + recenterAt) ||
+            player.transform.position.y >= (transform.position.y + recenterAt))
+            player.transform.position = transform.position;
+
+
+        print("Player after: " + player.transform.position);
+        print("Arrow after: " + transform.position);
+
+
+        /*
+        if (collider.tag == "Player")
+        {
+            playerIsApproaching = false;
+
+            print(playerIsApproaching);
+
+            //  Create assign the value of the player's movement speed
+            if (player.playerDirection == Player.Direction.DOWN || player.playerDirection == Player.Direction.UP)
+                moveSpeed = player.transform.position.normalized.y;
+            if (player.playerDirection == Player.Direction.LEFT || player.playerDirection == Player.Direction.RIGHT)
+                moveSpeed = player.transform.position.normalized.x;
+        }
+
+        */
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.tag == "Player")
+            playerIsApproaching = true;
+            
+    }
+
+    //  Movement of Arrows
 
     void OnMouseDrag() {
         //  Move the arrow around the gamespace by clicking and dragging
