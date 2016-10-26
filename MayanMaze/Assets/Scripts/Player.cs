@@ -11,9 +11,12 @@ public class Player : MonoBehaviour {
     private Transform transform;
     private bool isMovingTowards = true;
 
+    private LevelManager levelManager;
+
     // Use this for initialization
     void Start () {
         transform = GetComponent<Transform>();
+        levelManager = FindObjectOfType<LevelManager>();
 	}
 	
 	// Update is called once per frame
@@ -33,6 +36,33 @@ public class Player : MonoBehaviour {
                 break;
             case Direction.RIGHT:
                 transform.Translate(Vector2.right * playerMoveSpeed * Time.deltaTime, Space.World);
+                break;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        //  Reset player position to match the Arrow tile.
+        transform.position = collider.transform.position;     //  This needs to be smoothed out during polish. But it works for now
+
+        switch (collider.tag)
+        {
+            //  Load the next level
+            case "Door":
+                levelManager.LoadNextLevel();
+                break;
+            //  Adjust player direction
+            case "DownArrow":
+                playerDirection = Direction.DOWN;
+                break;
+            case "UpArrow":
+                playerDirection = Direction.UP;
+                break;
+            case "LeftArrow":
+                playerDirection = Direction.LEFT;
+                break;
+            case "RightArrow":
+                playerDirection = Direction.RIGHT;
                 break;
         }
     }

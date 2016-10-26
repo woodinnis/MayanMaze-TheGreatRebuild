@@ -11,13 +11,22 @@ public class Arrow : MonoBehaviour {
     public float recenterAt = 0.1f;
     private bool playerIsApproaching = true;
 
+    private GameObject borderWall;
+
     // Use this for initialization
     void Start () {
         //  Get the player information
         player = GameObject.FindObjectOfType<Player>();
         myCamera = GameObject.FindObjectOfType<Camera>();
 
+        borderWall = GameObject.FindGameObjectWithTag("BorderWall");
+
         transform = GetComponent<Transform>();
+
+        if (borderWall)
+        {
+            print("Found It!");
+        }
 	}
 
     //  Change player direction when they collide with an arrow
@@ -25,28 +34,12 @@ public class Arrow : MonoBehaviour {
     {
         //  The section of code working on smoothing movement onto an arrow tile has been extracted and the call commented out
         //  It can be reintegrated in some fashion later in development
+        //  This action has been moved to Player.cs
+        //  The transtion code will remain here until it's reintegrated.
         //  PlayerTrasitionSmoothing();
-
-        //  Snap the player to the position.x/y of the arrow tile
-        player.transform.position = transform.position;
-
-        switch (tag)
-        {
-            case "DownArrow":
-                player.playerDirection = Player.Direction.DOWN;
-                break;
-            case "UpArrow":
-                player.playerDirection = Player.Direction.UP;
-                break;
-            case "LeftArrow":
-                player.playerDirection = Player.Direction.LEFT;
-                break;
-            case "RightArrow":
-                player.playerDirection = Player.Direction.RIGHT;
-                break;
-        }
     }
-
+    
+    //  The code which was tested to smooth player transtition onto an arrow tile
     private void PlayerTrasitionSmoothing()
     {
         Vector2 fast = Vector2.zero;
@@ -89,16 +82,10 @@ public class Arrow : MonoBehaviour {
         */
     }
 
-    void OnTriggerExit2D(Collider2D collider)
-    {
-        if (collider.tag == "Player")
-            playerIsApproaching = true;
-            
-    }
-
     //  Movement of Arrows
 
     void OnMouseDrag() {
+
         //  Move the arrow around the gamespace by clicking and dragging
         Vector2 rawPos = CalculateWorldPointOfMouseClick();
         transform.position = SnapToGrid(rawPos);
