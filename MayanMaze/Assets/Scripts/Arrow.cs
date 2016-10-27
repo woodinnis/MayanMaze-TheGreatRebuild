@@ -3,35 +3,35 @@ using System.Collections;
 
 public class Arrow : MonoBehaviour {
 
+    public float xBoundaryLower;
+    public float xBoundaryUpper;
+    public float yBoundaryLower;
+    public float yBoundaryUpper;
+
     private Player player;
     private Transform transform;
     private Camera myCamera;
+    private Collider2D arrowCollider;
 
     private float moveSpeed = 0.8f;
     public float recenterAt = 0.1f;
     private bool playerIsApproaching = true;
 
-    private GameObject borderWall;
-
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         //  Get the player information
         player = GameObject.FindObjectOfType<Player>();
         myCamera = GameObject.FindObjectOfType<Camera>();
-
-        borderWall = GameObject.FindGameObjectWithTag("BorderWall");
+        //boundary = GameObject.FindGameObjectsWithTag("MazeBoundary");
 
         transform = GetComponent<Transform>();
-
-        if (borderWall)
-        {
-            print("Found It!");
-        }
-	}
+        arrowCollider = GetComponent<Collider2D>();
+    }
 
     //  Change player direction when they collide with an arrow
     void OnTriggerEnter2D(Collider2D collider)
-    {
+    { 
         //  The section of code working on smoothing movement onto an arrow tile has been extracted and the call commented out
         //  It can be reintegrated in some fashion later in development
         //  This action has been moved to Player.cs
@@ -86,9 +86,18 @@ public class Arrow : MonoBehaviour {
 
     void OnMouseDrag() {
 
+        print(transform.position);
+
+        //  This is probably not the most efficient way of handling this, but it will work for now
+        //  if ((transform.position. < BoundryLower && transform.position > BoundryUpper))
+
+        
         //  Move the arrow around the gamespace by clicking and dragging
         Vector2 rawPos = CalculateWorldPointOfMouseClick();
-        transform.position = SnapToGrid(rawPos);
+        if((rawPos.x > xBoundaryLower && rawPos.x < xBoundaryUpper) &&
+                (rawPos.y > yBoundaryLower && rawPos.y < yBoundaryUpper))
+            transform.position = SnapToGrid(rawPos);
+        
     }
 
     Vector2 CalculateWorldPointOfMouseClick()
