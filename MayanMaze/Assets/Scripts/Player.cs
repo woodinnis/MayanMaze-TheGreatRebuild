@@ -72,9 +72,9 @@ public class Player : MonoBehaviour {
         //  Check player is moving towards a wall
         if (isMovingTowards)
         {
-            //  Change player movement state
+            //  change player movement state
             isMovingTowards = false;
-            //  Change player direction
+            //  change player direction
             ChangePlayerDirection();
         }
     }
@@ -111,8 +111,6 @@ public class Player : MonoBehaviour {
         //  Snap tiles to the gamespace grid
         float newX = Mathf.RoundToInt(rawWorldPos.x);
         float newY = Mathf.RoundToInt(rawWorldPos.y);
-
-        
 
         return new Vector2(newX, newY);
     }

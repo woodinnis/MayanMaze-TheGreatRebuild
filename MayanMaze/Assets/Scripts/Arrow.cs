@@ -86,11 +86,11 @@ public class Arrow : MonoBehaviour {
 
     void OnMouseDrag() {
 
-        print(transform.position);
-
         //  This is probably not the most efficient way of handling this, but it will work for now
         //  if ((transform.position. < BoundryLower && transform.position > BoundryUpper))
 
+        //  Disable the arrow's collider while it is being moved
+        arrowCollider.enabled = false;
         
         //  Move the arrow around the gamespace by clicking and dragging
         Vector2 rawPos = CalculateWorldPointOfMouseClick();
@@ -100,6 +100,11 @@ public class Arrow : MonoBehaviour {
         
     }
 
+    void OnMouseUp()
+    {
+        //  Reenable the arrow's collider once it has been placed
+        arrowCollider.enabled = true;
+    }
     Vector2 CalculateWorldPointOfMouseClick()
     {
         //  Calculate the worldspace of the mouse (instead of the default pixels used by Input.mousePosition)
