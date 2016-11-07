@@ -5,16 +5,18 @@ using System.Collections;
 public class Tutorial : MonoBehaviour {
 
     public string[] checkLevels;
-    public string[] tutorialMessages;
+    public Text[] tutorialMessages;
 
     private LevelManager levelManager;
     private Text text;
+    private Canvas tutorialCanvas;
 
 	// Use this for initialization
 	void Start ()
     {
         levelManager = GameObject.FindObjectOfType<LevelManager>();
         text = GetComponent<Text>();
+        tutorialCanvas = GetComponentInParent<Canvas>();
 
         DisplayCurrentTutorial();
     }
@@ -31,10 +33,14 @@ public class Tutorial : MonoBehaviour {
             //  When a matching level name and tutorial message are found, display the message.
             if (level == currentLevel)
             {
-                text.text = tutorialMessages[index];
+                text.text = tutorialMessages[index].text;
                 break;
             }
             ++index;
+        }
+        if(index > tutorialMessages.Length)
+        {
+            tutorialCanvas.enabled = false;
         }
     }
 }
