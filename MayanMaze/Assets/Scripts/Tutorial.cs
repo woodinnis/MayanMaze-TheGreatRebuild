@@ -38,7 +38,7 @@ public class Tutorial : MonoBehaviour {
             }
             ++index;
         }
-        if(index > tutorialMessages.Length)
+        if(index >= tutorialMessages.Length)
         {
             tutorialCanvas.enabled = false;
         }
