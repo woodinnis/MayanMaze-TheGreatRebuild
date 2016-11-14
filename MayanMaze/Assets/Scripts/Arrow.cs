@@ -42,6 +42,11 @@ public class Arrow : MonoBehaviour {
         //  The transtion code will remain here until it's reintegrated.
         //  PlayerTrasitionSmoothing();
 
+        verifyAndResetTilePosition(collider);
+    }
+
+    private void verifyAndResetTilePosition(Collider2D collider)
+    {
         //  This vector is used to return tiles (currently only arrows) to their positions without conflict
         Vector2 colliderReturnPosition;
 
@@ -49,9 +54,6 @@ public class Arrow : MonoBehaviour {
             colliderReturnPosition = transform.position;
         else
             colliderReturnPosition = previousMousePosition;
-
-        print("Collider Returns to: " + colliderReturnPosition);
-        print("Mouse returns to: " + previousMousePosition);
 
         //  If player drops an arrow on top of an occupied tile, return the arrow to its previous position
         switch (collider.tag)
@@ -72,7 +74,6 @@ public class Arrow : MonoBehaviour {
                         transform.position = previousMousePosition;
                     else
                         transform.position = colliderReturnPosition;
-
                     break;
                 }
             default:
@@ -81,7 +82,6 @@ public class Arrow : MonoBehaviour {
                 }
         }
     }
-
 
     void OnTrigger2DExit()
     {
