@@ -69,13 +69,16 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //  Check player is moving towards a wall
-        if (isMovingTowards)
+        if (collision.gameObject.tag == "Wall")
         {
-            //  change player movement state
-            isMovingTowards = false;
-            //  change player direction
-            ChangePlayerDirection();
+            //  Check player is moving towards a wall
+            if (isMovingTowards)
+            {
+                //  change player movement state
+                isMovingTowards = false;
+                //  change player direction
+                ChangePlayerDirection();
+            }
         }
     }
 

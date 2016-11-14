@@ -9,13 +9,16 @@ public class Arrow : MonoBehaviour {
     public float yBoundaryUpper;
 
     private Player player;
-    private Transform transform;
+    //private Transform transform;  OBSOLETE
+    private Transform previousPosition;
     private Camera myCamera;
     private Collider2D arrowCollider;
+    private Vector2 previousMousePosition;
 
     private float moveSpeed = 0.8f;
     public float recenterAt = 0.1f;
     private bool playerIsApproaching = true;
+    private bool activeArrowTile = false;
 
     // Use this for initialization
     void Start()
@@ -25,20 +28,66 @@ public class Arrow : MonoBehaviour {
         myCamera = GameObject.FindObjectOfType<Camera>();
         //boundary = GameObject.FindGameObjectsWithTag("MazeBoundary");
 
-        transform = GetComponent<Transform>();
+        //transform = GetComponent<Transform>();    OBSOLETE
+        previousPosition = transform;
         arrowCollider = GetComponent<Collider2D>();
     }
 
     //  Change player direction when they collide with an arrow
     void OnTriggerEnter2D(Collider2D collider)
-    { 
+    {
         //  The section of code working on smoothing movement onto an arrow tile has been extracted and the call commented out
         //  It can be reintegrated in some fashion later in development
         //  This action has been moved to Player.cs
         //  The transtion code will remain here until it's reintegrated.
         //  PlayerTrasitionSmoothing();
+
+        //  This vector is used to return tiles (currently only arrows) to their positions without conflict
+        Vector2 colliderReturnPosition;
+
+        if (!activeArrowTile)
+            colliderReturnPosition = transform.position;
+        else
+            colliderReturnPosition = previousMousePosition;
+
+        print("Collider Returns to: " + colliderReturnPosition);
+        print("Mouse returns to: " + previousMousePosition);
+
+        //  If player drops an arrow on top of an occupied tile, return the arrow to its previous position
+        switch (collider.tag)
+        {
+            case "Wall":
+            case "Door":
+            case "Hole":
+                {
+                    transform.position = previousMousePosition;
+                    break;
+                }
+            case "UpArrow":
+            case "DownArrow":
+            case "LeftArrow":
+            case "RightArrow":
+                {
+                    if (activeArrowTile)
+                        transform.position = previousMousePosition;
+                    else
+                        transform.position = colliderReturnPosition;
+
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
     }
-    
+
+
+    void OnTrigger2DExit()
+    {
+        activeArrowTile = false;
+    }
+
     //  The code which was tested to smooth player transtition onto an arrow tile
     private void PlayerTrasitionSmoothing()
     {
@@ -82,8 +131,18 @@ public class Arrow : MonoBehaviour {
         */
     }
 
-    //  Movement of Arrows
+    //  Executed on the click of a mouse button
+    void OnMouseDown()
+    {
+        //  Set this as the active arrow tile
+        activeArrowTile = true;
 
+        //  Obtain the position of the mouse upon clicking the mouse.
+        Vector2 clickHere = CalculateWorldPointOfMouseClick();
+        previousMousePosition = SnapToGrid(clickHere);
+    }
+
+    //  Movement of Arrows
     void OnMouseDrag() {
 
         //  This is probably not the most efficient way of handling this, but it will work for now
@@ -94,10 +153,9 @@ public class Arrow : MonoBehaviour {
         
         //  Move the arrow around the gamespace by clicking and dragging
         Vector2 rawPos = CalculateWorldPointOfMouseClick();
-        if((rawPos.x > xBoundaryLower && rawPos.x < xBoundaryUpper) &&
+        if ((rawPos.x > xBoundaryLower && rawPos.x < xBoundaryUpper) &&
                 (rawPos.y > yBoundaryLower && rawPos.y < yBoundaryUpper))
             transform.position = SnapToGrid(rawPos);
-        
     }
 
     void OnMouseUp()
@@ -105,6 +163,7 @@ public class Arrow : MonoBehaviour {
         //  Reenable the arrow's collider once it has been placed
         arrowCollider.enabled = true;
     }
+
     Vector2 CalculateWorldPointOfMouseClick()
     {
         //  Calculate the worldspace of the mouse (instead of the default pixels used by Input.mousePosition)

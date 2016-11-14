@@ -20,9 +20,12 @@ public class Hole : MonoBehaviour {
     //  Reset level when player collides with the hole
 	void OnTriggerEnter2D(Collider2D collider) {
         //  Snap player to the position of the hole
-        player.transform.position = transform.position;
+        if (collider.tag == "Player")
+        {
+            player.transform.position = transform.position;
 
-        //  Reload the level
-        levelManager.RestartLevel();
+            //  Reload the level
+            levelManager.RestartLevel();
+        }
     }
 }
