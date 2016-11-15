@@ -43,7 +43,8 @@ public class Player : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collider)
     {
         //  Reset player position to match the Arrow tile.
-        transform.position = collider.transform.position;     //  This needs to be smoothed out during polish. But it works for now
+        Vector2 newPlayerPosition = collider.transform.position;
+        transform.position = newPlayerPosition;     //  This needs to be smoothed out during polish. But it works for now
 
         switch (collider.tag)
         {

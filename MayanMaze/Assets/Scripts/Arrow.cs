@@ -9,8 +9,6 @@ public class Arrow : MonoBehaviour {
     public float yBoundaryUpper;
 
     private Player player;
-    //private Transform transform;  OBSOLETE
-    private Transform previousPosition;
     private Camera myCamera;
     private Collider2D arrowCollider;
     private Vector2 previousMousePosition;
@@ -28,8 +26,6 @@ public class Arrow : MonoBehaviour {
         myCamera = GameObject.FindObjectOfType<Camera>();
         //boundary = GameObject.FindGameObjectsWithTag("MazeBoundary");
 
-        //transform = GetComponent<Transform>();    OBSOLETE
-        previousPosition = transform;
         arrowCollider = GetComponent<Collider2D>();
     }
 
@@ -71,7 +67,10 @@ public class Arrow : MonoBehaviour {
             case "RightArrow":
                 {
                     if (activeArrowTile)
+                    {
                         transform.position = previousMousePosition;
+                        collider.enabled = false;   //  Disable the arrow while it returns to its previous position
+                    }
                     else
                         transform.position = colliderReturnPosition;
                     break;
@@ -81,6 +80,7 @@ public class Arrow : MonoBehaviour {
                     break;
                 }
         }
+        collider.enabled = true;    //  Reenable the arrow
     }
 
     void OnTrigger2DExit()
