@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Restart : MonoBehaviour {
+public class RestartButton : MonoBehaviour {
 
     private Button button;
     private LevelManager levelManager;

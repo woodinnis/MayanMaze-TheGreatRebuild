@@ -92,8 +92,10 @@ Assets/Scripts/LevelManager.cs
 Assets/Scripts/LevelNumber.cs
 Assets/Scripts/MainMenu.cs
 Assets/Scripts/MenuButton.cs
+Assets/Scripts/PauseButton.cs
+Assets/Scripts/PauseScreen.cs
 Assets/Scripts/Player.cs
-Assets/Scripts/Restart.cs
+Assets/Scripts/RestartButton.cs
 Assets/Scripts/Tutorial.cs
 Assets/Scripts/TutorialButton.cs
 -r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\System.Runtime.Serialization.dll"

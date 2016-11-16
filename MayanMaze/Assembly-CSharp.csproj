@@ -52,8 +52,10 @@
      <Compile Include="Assets\Scripts\LevelNumber.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\MenuButton.cs" />
+     <Compile Include="Assets\Scripts\PauseButton.cs" />
+     <Compile Include="Assets\Scripts\PauseScreen.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\Restart.cs" />
+     <Compile Include="Assets\Scripts\RestartButton.cs" />
      <Compile Include="Assets\Scripts\Tutorial.cs" />
      <Compile Include="Assets\Scripts\TutorialButton.cs" />
  <Reference Include="UnityEngine.UI">
