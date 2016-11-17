@@ -28,7 +28,8 @@ public class CountdownTimer : MonoBehaviour {
         {
             //  Begin the timer
             timerText.text = countdownMessage + " " + Mathf.Round(countdownTarget);
-            countdownTarget -= Time.deltaTime;
+            if(countdownTarget >= 0)
+                countdownTarget -= Time.deltaTime;
 
             //  When the timer reaches 0 reenable player actions and clear the text field
             if (countdownTarget < 0)
