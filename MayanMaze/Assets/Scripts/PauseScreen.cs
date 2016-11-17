@@ -9,6 +9,8 @@ public class PauseScreen : MonoBehaviour {
     private MenuButton menuButton;
     private RestartButton restartButton;
 
+    private float playerMoveSpeed;
+
     //  I Cannot currently make a panel work the way I'd like to, so I'm leaving the Canvas out for now.
     //    private Canvas pauseCanvas;
 
@@ -28,6 +30,8 @@ public class PauseScreen : MonoBehaviour {
 
         arrows = FindObjectsOfType<Arrow>();
         player = FindObjectOfType<Player>();
+
+        playerMoveSpeed = player.playerMoveSpeed;
 
         gameIsPaused = false;
         ButtonHandler();
@@ -51,6 +55,7 @@ public class PauseScreen : MonoBehaviour {
         {
             //pauseCanvas.enabled = true;
             player.enabled = false;
+            player.playerMoveSpeed = 0;
             player.GetComponent<SpriteRenderer>().enabled = false;
             pauseText.text = "PAUSED";
             foreach (Arrow tile in arrows)
@@ -65,6 +70,7 @@ public class PauseScreen : MonoBehaviour {
         {
             //pauseCanvas.enabled = false;
             player.enabled = true;
+            player.playerMoveSpeed = playerMoveSpeed;
             player.GetComponent<SpriteRenderer>().enabled = true;
             pauseText.text = "";
             foreach (Arrow tile in arrows)
