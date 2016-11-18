@@ -8,19 +8,26 @@ public class Player : MonoBehaviour {
     public float playerMoveSpeed;
     public Direction playerDirection;
 
-    private Transform transform;
+    public Sprite upWalkGraphic;
+    public Sprite downWalkGraphic;
+    public Sprite leftWalkGraphic;
+    public Sprite rightWalkGraphic;
+
+    private SpriteRenderer playerSpriteRenderer;
     private bool isMovingTowards = true;
 
     private LevelManager levelManager;
 
     // Use this for initialization
     void Start () {
-        transform = GetComponent<Transform>();
         levelManager = FindObjectOfType<LevelManager>();
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
+
+        ChangePlayerDirection(playerDirection);
+    }
+
+    // Update is called once per frame
+    void FixedUpdate () {
         //  Move player based on playerDirection
 
         switch (playerDirection)
@@ -54,16 +61,16 @@ public class Player : MonoBehaviour {
                 break;
             //  Adjust player direction
             case "DownArrow":
-                playerDirection = Direction.DOWN;
+                ChangePlayerDirection(Direction.DOWN);
                 break;
             case "UpArrow":
-                playerDirection = Direction.UP;
+                ChangePlayerDirection(Direction.UP);
                 break;
             case "LeftArrow":
-                playerDirection = Direction.LEFT;
+                ChangePlayerDirection(Direction.LEFT);
                 break;
             case "RightArrow":
-                playerDirection = Direction.RIGHT;
+                ChangePlayerDirection(Direction.RIGHT);
                 break;
         }
     }
@@ -77,28 +84,61 @@ public class Player : MonoBehaviour {
             {
                 //  change player movement state
                 isMovingTowards = false;
-                //  change player direction
-                ChangePlayerDirection();
+
+                //  Reverse player direction
+                ReverseDirection();
             }
         }
     }
 
-    private void ChangePlayerDirection()
+    private void ReverseDirection()
     {
+        //  Reverse player direction
         switch (playerDirection)
         {
-            case Direction.DOWN:
-                playerDirection = Direction.UP;
-                break;
             case Direction.UP:
-                playerDirection = Direction.DOWN;
+                ChangePlayerDirection(Direction.DOWN);
+                break;
+            case Direction.DOWN:
+                ChangePlayerDirection(Direction.UP);
                 break;
             case Direction.LEFT:
-                playerDirection = Direction.RIGHT;
+                ChangePlayerDirection(Direction.RIGHT);
                 break;
             case Direction.RIGHT:
-                playerDirection = Direction.LEFT;
+                ChangePlayerDirection(Direction.LEFT);
                 break;
+        }
+    }
+
+    private void ChangePlayerDirection(Direction thisWay)
+    {
+        //  Change player direction
+        playerDirection = thisWay;
+
+        //  Change player image
+        switch (thisWay)
+        {
+            case Direction.UP:
+                {
+                    playerSpriteRenderer.sprite = upWalkGraphic;
+                    break;
+                }
+            case Direction.DOWN:
+                {
+                    playerSpriteRenderer.sprite = downWalkGraphic;
+                    break;
+                }
+            case Direction.LEFT:
+                {
+                    playerSpriteRenderer.sprite = leftWalkGraphic;
+                    break;
+                }
+            case Direction.RIGHT:
+                {
+                    playerSpriteRenderer.sprite = rightWalkGraphic;
+                    break;
+                }
         }
     }
 
