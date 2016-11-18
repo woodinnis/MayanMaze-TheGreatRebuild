@@ -17,13 +17,15 @@ public class ArrowTile : MonoBehaviour {
     public float yBoundaryLower;
     public float yBoundaryUpper;
 
+    private float arrowDragAlpha = 0.66f;
+
     private Player player;
     private Camera myCamera;
     private Collider2D arrowCollider;
     private Vector2 previousMousePosition;
 
     private float moveSpeed = 0.8f;
-    public float recenterAt = 0.1f;
+    private float recenterAt = 0.1f;
     private bool playerIsApproaching = true;
     private bool activeArrowTile = false;
     private SpriteRenderer arrowSpriteRenderer;
@@ -190,12 +192,18 @@ public class ArrowTile : MonoBehaviour {
     //  Movement of Arrows
     void OnMouseDrag() {
 
+        Color arrowDrag = Color.white;
+        arrowDrag.a = arrowDragAlpha;
+
         //  This is probably not the most efficient way of handling this, but it will work for now
         //  if ((transform.position. < BoundryLower && transform.position > BoundryUpper))
 
         //  Disable the arrow's collider while it is being moved
         arrowCollider.enabled = false;
-        
+
+        //  Set the arrow's alpha
+        arrowSpriteRenderer.color = arrowDrag;
+
         //  Move the arrow around the gamespace by clicking and dragging
         Vector2 rawPos = CalculateWorldPointOfMouseClick();
 
@@ -207,8 +215,13 @@ public class ArrowTile : MonoBehaviour {
 
     void OnMouseUp()
     {
+        Color arrowDrop = Color.white;
+        arrowDrop.a = 1f;
         //  Reenable the arrow's collider once it has been placed
         arrowCollider.enabled = true;
+
+        //  Reset the arrow's alpha to 100%
+        arrowSpriteRenderer.color = arrowDrop;
     }
 
     Vector2 CalculateWorldPointOfMouseClick()
