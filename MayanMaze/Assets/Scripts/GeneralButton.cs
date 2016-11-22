@@ -5,14 +5,14 @@ using System.Collections;
 
 public class GeneralButton : MonoBehaviour {
 
-    public enum ButtonType { MENU, PAUSE, RESTART, TUTORIAL };
+    public enum ButtonType { MENU, PAUSE, RESTART, CONTINUE };
 
     public ButtonType buttonType;
 
     private Button button;
     private Canvas tutorialCanvas;
     private GameObject tutorialPanel;
-    private PauseScreen pauseScreen;
+    //private PauseScreen pauseScreen;
 
     // Use this for initialization
     void Start() {
@@ -28,6 +28,7 @@ public class GeneralButton : MonoBehaviour {
 
     void TaskOnClick()
     {
+        //  Perform the selected button operation
         switch (buttonType)
         {
             case ButtonType.MENU:
@@ -39,6 +40,8 @@ public class GeneralButton : MonoBehaviour {
                 }
             case ButtonType.PAUSE:
                 {
+                    PauseScreen pauseScreen = FindObjectOfType<PauseScreen>();
+                    pauseScreen.PauseFunction();
                     print("Pause");
                     break;
                 }
@@ -49,9 +52,9 @@ public class GeneralButton : MonoBehaviour {
                     print("Restart");
                     break;
                 }
-            case ButtonType.TUTORIAL:
+            case ButtonType.CONTINUE:
                 {
-                    print("Tutorial");
+                    print("Continue");
                     break;
                 }
         }
