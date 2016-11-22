@@ -12,15 +12,43 @@ public class CountdownTimer : MonoBehaviour {
     private Text timerText;
     private Player currentPlayer;
     private float countdownTarget;
-    private PauseButton pauseButton;
+    private GeneralButton[] generalButtons;
 
 	// Use this for initialization
 	void Start () {
-
+        generalButtons = FindObjectsOfType<GeneralButton>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    void OnLevelWasLoaded()
+    {
+        //  Varify that the current scene is at or above the first scene requiring a timer
+        if (SceneManager.GetActiveScene().buildIndex >= startAtSceneIndex)
+        {
+            //  Set the local countdown timer value
+            countdownTarget = countdownTime;
+
+            //  Disable the pause button
+            foreach(GeneralButton gB in generalButtons)
+            {
+                print(gB.name);
+                //if (gB.buttonType == GeneralButton.ButtonType.PAUSE)
+                    //print(gB.name);
+            }
+            //pauseButton = FindObjectOfType<GeneralButton>();
+
+            //  Disable the player
+            currentPlayer = FindObjectOfType<Player>();
+//            currentPlayer.enabled = false;
+
+            //  Enable the timer text
+            timerText = GetComponentInChildren<Text>();
+            timerText.enabled = true;
+        }
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         //  Verify that the current scene is at or beyond the first scene requiring a timer
         if (SceneManager.GetActiveScene().buildIndex >= startAtSceneIndex)
@@ -33,35 +61,16 @@ public class CountdownTimer : MonoBehaviour {
             //  When the timer reaches 0 reenable player actions and clear the text field
             if (countdownTarget < 0)
             {
-                currentPlayer.enabled = true;
+//                currentPlayer.enabled = true;
                 timerText.enabled = false;
 
                 //  Enable pause button
-                pauseButton.enabled = true;
+                foreach (GeneralButton gB in generalButtons)
+                {
+                    if (gB.buttonType == GeneralButton.ButtonType.PAUSE)
+                        gB.enabled = true;
+                }
             }
         }
-    }
-
-    void OnLevelWasLoaded()
-    {
-        //  Varify that the current scene is at or above the first scene requiring a timer
-        if (SceneManager.GetActiveScene().buildIndex >= startAtSceneIndex)
-        {
-            //  Set the local countdown timer value
-            countdownTarget = countdownTime;
-
-            //  Disable the pause button
-            pauseButton = FindObjectOfType<PauseButton>();
-            pauseButton.enabled = false;
-
-            //  Disable the player
-            currentPlayer = FindObjectOfType<Player>();
-            currentPlayer.enabled = false;
-
-            //  Enable the timer text
-            timerText = GetComponentInChildren<Text>();
-            timerText.enabled = true;
-        }
-
     }
 }
