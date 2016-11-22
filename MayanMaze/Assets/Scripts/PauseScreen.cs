@@ -8,6 +8,7 @@ public class PauseScreen : MonoBehaviour {
     private PauseButton pauseButton;
     private MenuButton menuButton;
     private RestartButton restartButton;
+    private Text countdownText;
 
     private float playerMoveSpeed;
 
@@ -27,6 +28,9 @@ public class PauseScreen : MonoBehaviour {
         menuButton = GetComponentInChildren<MenuButton>();
         restartButton = GetComponentInChildren<RestartButton>();
         //  pauseCanvas = GetComponent<Canvas>();
+
+        countdownTimer = FindObjectOfType<CountdownTimer>();
+        countdownText = countdownTimer.GetComponentInChildren<Text>();
 
         arrows = FindObjectsOfType<Arrow>();
         player = FindObjectOfType<Player>();
@@ -53,21 +57,28 @@ public class PauseScreen : MonoBehaviour {
 
         if (!gameIsPaused)
         {
+            gameIsPaused = true;
+
             //pauseCanvas.enabled = true;
             player.enabled = false;
             player.playerMoveSpeed = 0;
             player.GetComponent<SpriteRenderer>().enabled = false;
-            pauseText.text = "PAUSED";
+
+            {
+                pauseText.text = "PAUSED";
+                ButtonHandler();
+            }
+
             foreach (Arrow tile in arrows)
             {
                 tile.enabled = false;
                 tile.GetComponent<SpriteRenderer>().enabled = false;
             }
-            gameIsPaused = true;
-            ButtonHandler();
         }
         else
         {
+            gameIsPaused = false;
+
             //pauseCanvas.enabled = false;
             player.enabled = true;
             player.playerMoveSpeed = playerMoveSpeed;
@@ -78,7 +89,7 @@ public class PauseScreen : MonoBehaviour {
                 tile.enabled = true;
                 tile.GetComponent<SpriteRenderer>().enabled = true;
             }
-            gameIsPaused = false;
+            
             ButtonHandler();
         }
     }

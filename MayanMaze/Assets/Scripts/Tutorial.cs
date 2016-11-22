@@ -10,6 +10,7 @@ public class Tutorial : MonoBehaviour {
     private LevelManager levelManager;
     private Text text;
     private Canvas tutorialCanvas;
+    private PauseScreen pauseScreen;
 
 	// Use this for initialization
 	void Start ()
@@ -17,6 +18,7 @@ public class Tutorial : MonoBehaviour {
         levelManager = GameObject.FindObjectOfType<LevelManager>();
         text = GetComponent<Text>();
         tutorialCanvas = GetComponentInParent<Canvas>();
+        pauseScreen = FindObjectOfType<PauseScreen>();
 
         DisplayCurrentTutorial();
     }
@@ -33,6 +35,7 @@ public class Tutorial : MonoBehaviour {
             //  When a matching level name and tutorial message are found, display the message.
             if (level == currentLevel)
             {
+                //pauseScreen.PauseFunction();
                 text.text = tutorialMessages[index].text;
                 break;
             }
