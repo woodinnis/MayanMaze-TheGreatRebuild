@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\ArrowTile.cs" />
      <Compile Include="Assets\Scripts\CountdownTimer.cs" />
      <Compile Include="Assets\Scripts\Door.cs" />
+     <Compile Include="Assets\Scripts\GeneralButton.cs" />
      <Compile Include="Assets\Scripts\Hole.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\LevelNumber.cs" />
