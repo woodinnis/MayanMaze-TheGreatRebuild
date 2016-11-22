@@ -8,6 +8,7 @@ public class PauseScreen : MonoBehaviour {
     private PauseButton pauseButton;
     private MenuButton menuButton;
     private RestartButton restartButton;
+    private CountdownTimer countdownTimer;
     private Text countdownText;
 
     private float playerMoveSpeed;
@@ -60,10 +61,12 @@ public class PauseScreen : MonoBehaviour {
             gameIsPaused = true;
 
             //pauseCanvas.enabled = true;
+            //countdownTimer.enabled = false;
             player.enabled = false;
             player.playerMoveSpeed = 0;
             player.GetComponent<SpriteRenderer>().enabled = false;
 
+            //if (!countdownText.enabled)
             {
                 pauseText.text = "PAUSED";
                 ButtonHandler();
@@ -80,6 +83,7 @@ public class PauseScreen : MonoBehaviour {
             gameIsPaused = false;
 
             //pauseCanvas.enabled = false;
+            //countdownTimer.enabled = true;
             player.enabled = true;
             player.playerMoveSpeed = playerMoveSpeed;
             player.GetComponent<SpriteRenderer>().enabled = true;
