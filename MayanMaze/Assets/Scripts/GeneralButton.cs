@@ -10,18 +10,11 @@ public class GeneralButton : MonoBehaviour {
     public ButtonType buttonType;
 
     private Button button;
-    private Canvas tutorialCanvas;
-    private GameObject tutorialPanel;
-    //private PauseScreen pauseScreen;
-
+    
     // Use this for initialization
     void Start() {
         
         button = GetComponent<Button>();
-
-        //tutorialCanvas = GetComponentInParent<Canvas>();
-        //tutorialPanel = GameObject.Find("Tutorial Panel");
-        //pauseScreen = FindObjectOfType<PauseScreen>();
 
         button.onClick.AddListener(TaskOnClick);
     }
@@ -35,31 +28,26 @@ public class GeneralButton : MonoBehaviour {
                 {
                     LevelManager levelManager = FindObjectOfType<LevelManager>();
                     levelManager.GoToStart();
-                    print("Menu");
                     break;
                 }
             case ButtonType.PAUSE:
                 {
                     PauseScreen pauseScreen = FindObjectOfType<PauseScreen>();
                     pauseScreen.PauseFunction();
-                    print("Pause");
                     break;
                 }
             case ButtonType.RESTART:
                 {
                     LevelManager levelManager = FindObjectOfType<LevelManager>();
                     levelManager.RestartLevel();
-                    print("Restart");
                     break;
                 }
             case ButtonType.CONTINUE:
                 {
-                    print("Continue");
+                    Canvas myCanvas = GetComponentInParent<Canvas>();
+                    myCanvas.enabled = false;
                     break;
                 }
         }
-        //tutorialCanvas.enabled = false;
-        //pauseScreen.PauseFunction();
     }
-
 }
