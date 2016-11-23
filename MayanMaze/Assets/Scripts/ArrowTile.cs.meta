@@ -1,10 +1,15 @@
 fileFormatVersion: 2
 guid: 9eda509a3397bc84a85be3c24145e862
-timeCreated: 1475774888
+timeCreated: 1479936104
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - upArrowGraphic: {fileID: 21300000, guid: f72b1f66afa1b7c45b02b21d0d837890, type: 3}
+  - downArrowGraphic: {fileID: 21300000, guid: 3c6fffa346857534dac30e55f8e5ff0f, type: 3}
+  - leftArrowGraphic: {fileID: 21300000, guid: feb4f3f1af67cbb469c363a206437911, type: 3}
+  - rightArrowGraphic: {fileID: 21300000, guid: 03e0690e7d7000f4e80a9e20cb336746,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
