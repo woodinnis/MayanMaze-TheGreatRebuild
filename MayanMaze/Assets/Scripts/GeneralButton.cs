@@ -44,8 +44,10 @@ public class GeneralButton : MonoBehaviour {
                 }
             case ButtonType.CONTINUE:
                 {
-                    CanvasGroup myCanvas = FindObjectOfType<CanvasGroup>();
-                    myCanvas.gameObject.SetActive(false);
+                    GameObject[] myCanvas = GameObject.FindGameObjectsWithTag("Tutorial");
+
+                    foreach (GameObject mC in myCanvas)
+                        mC.SetActive(false);
 
                     break;
                 }

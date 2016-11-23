@@ -25,8 +25,10 @@ public class Tutorial : MonoBehaviour {
 
         if (countDown.countdownTarget <= 0f)
         {
-            Canvas myCanvas = GetComponentInParent<Canvas>();
-            myCanvas.enabled = false;
+            GameObject[] myCanvas = GameObject.FindGameObjectsWithTag("Tutorial");
+
+            foreach (GameObject mC in myCanvas)
+                mC.SetActive(false);
         }
     }
 
