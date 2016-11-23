@@ -9,18 +9,27 @@ public class Tutorial : MonoBehaviour {
 
     private LevelManager levelManager;
     private Text text;
-    private Canvas tutorialCanvas;
     private PauseScreen pauseScreen;
 
 	// Use this for initialization
 	void Start ()
     {
         levelManager = GameObject.FindObjectOfType<LevelManager>();
-        text = GetComponent<Text>();
-        tutorialCanvas = GetComponentInParent<Canvas>();
         pauseScreen = FindObjectOfType<PauseScreen>();
+        text = GetComponentInChildren<Text>();
 
         DisplayCurrentTutorial();
+    }
+
+    private void Update()
+    {
+        CountdownTimer countDown = FindObjectOfType<CountdownTimer>();
+
+        if (countDown.countdownTarget <= 0f)
+        {
+            Canvas myCanvas = GetComponentInParent<Canvas>();
+            myCanvas.enabled = false;
+        }
     }
 
     private void DisplayCurrentTutorial()
@@ -43,7 +52,8 @@ public class Tutorial : MonoBehaviour {
         }
         if(index >= tutorialMessages.Length)
         {
-            tutorialCanvas.enabled = false;
+            Canvas myCanvas = GetComponentInParent<Canvas>();
+            myCanvas.enabled = false;
         }
     }
 }

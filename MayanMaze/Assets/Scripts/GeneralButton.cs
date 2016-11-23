@@ -44,8 +44,9 @@ public class GeneralButton : MonoBehaviour {
                 }
             case ButtonType.CONTINUE:
                 {
-                    Canvas myCanvas = GetComponentInParent<Canvas>();
-                    myCanvas.enabled = false;
+                    CanvasGroup myCanvas = FindObjectOfType<CanvasGroup>();
+                    myCanvas.gameObject.SetActive(false);
+
                     break;
                 }
         }

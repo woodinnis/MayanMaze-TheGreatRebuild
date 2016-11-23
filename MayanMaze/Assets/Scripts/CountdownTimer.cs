@@ -7,11 +7,13 @@ public class CountdownTimer : MonoBehaviour {
 
     public string countdownMessage;
     public float countdownTime;
-    public int startAtSceneIndex;    
+    public int startAtSceneIndex;
+
+    [HideInInspector]
+    public float countdownTarget;
 
     private Text timerText;
     private Player currentPlayer;
-    private float countdownTarget;
     private GeneralButton[] generalButtons;
 
 	// Use this for initialization
