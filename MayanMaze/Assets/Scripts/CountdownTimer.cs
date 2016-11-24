@@ -14,12 +14,13 @@ public class CountdownTimer : MonoBehaviour {
 
     private Text timerText;
     private Player currentPlayer;
-    private GeneralButton[] generalButtons;
+//    private GeneralButton[] generalButtons;
 
 	// Use this for initialization
 	void Start () {
-        generalButtons = FindObjectsOfType<GeneralButton>();
-	}
+//        generalButtons = FindObjectsOfType<GeneralButton>();
+//        timerText = GetComponentInChildren<Text>();
+    }
 
     void OnLevelWasLoaded()
     {
@@ -30,12 +31,14 @@ public class CountdownTimer : MonoBehaviour {
             countdownTarget = countdownTime;
 
             //  Disable the pause button
-            foreach(GeneralButton gB in generalButtons)
-            {
-                print(gB.name);
+            //  This is still in development.
+            //  Attempts to deactivate the pause button while the countdown timer is active have been unsuccessful so far
+            //  foreach(GeneralButton gB in generalButtons)
+            //  {
+            //    print(gB.name);
                 //if (gB.buttonType == GeneralButton.ButtonType.PAUSE)
                     //print(gB.name);
-            }
+            //  }
             //pauseButton = FindObjectOfType<GeneralButton>();
 
             //  Disable the player
@@ -67,11 +70,11 @@ public class CountdownTimer : MonoBehaviour {
                 timerText.enabled = false;
 
                 //  Enable pause button
-                foreach (GeneralButton gB in generalButtons)
-                {
-                    if (gB.buttonType == GeneralButton.ButtonType.PAUSE)
-                        gB.enabled = true;
-                }
+                //  foreach (GeneralButton gB in generalButtons)
+                //  {
+                //    if (gB.buttonType == GeneralButton.ButtonType.PAUSE)
+                //        gB.enabled = true;
+                //  }
             }
         }
     }
