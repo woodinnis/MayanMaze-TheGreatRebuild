@@ -1,43 +1,42 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class LevelNumber : MonoBehaviour {
 
-    public string[] levels;
+    public int startAtLevel;
+    public int buildIndexBuffer;
 
-    private Text text;
-    private LevelManager levelManager;
+    private int startAtSceneIndex;
 
 	// Use this for initialization
 	void Start ()
     {
+        //  Set the scene index to begin counting levels based on the level number
+        startAtSceneIndex = startAtLevel + buildIndexBuffer;
+    }
+
+    void OnLevelWasLoaded()
+    {
+        //  Call at the beginning of each level
         DisplayCurrentLevel();
     }
 
     private void DisplayCurrentLevel()
     {
+        //  Acquire the text component of the Level indicator
+        Text text;
         text = GetComponent<Text>();
-        levelManager = FindObjectOfType<LevelManager>();
 
-        //  Get the name of the current level
-        string currentLevel = levelManager.GetCurrentLevel();
+        //  Get the current scene index
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        int index = 0;
-
-        //  Search each array element
-        foreach (string item in levels)
+        //  Display the current level
+        if (currentSceneIndex >= startAtSceneIndex)
         {
-            string testLevel = item;
-
-            //  When the current level is located, set the LevelNumber.Text to the coinciding value in the array
-            if (testLevel == currentLevel)
-            {
-                text.text = index.ToString();
-                break;  // Exit the loop
-            }
-
-            ++index;
+            string testLevel = (currentSceneIndex - buildIndexBuffer).ToString();
+            text.text = testLevel;
         }
     }
 }
