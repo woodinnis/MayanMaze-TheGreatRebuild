@@ -14,7 +14,7 @@ public class Traps : MonoBehaviour {
 	}
 
     //  Reset level when player collides with the trap
-    void OnCollisionEnter2D(Collision2D otherCollider)
+    public void OnCollisionEnter2D(Collision2D otherCollider)
     {
         if (otherCollider.collider.tag == "Player")
         {
