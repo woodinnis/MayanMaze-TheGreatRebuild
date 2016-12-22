@@ -17,10 +17,6 @@ public class Spikes : Traps {
             //  Call the base class to perform root-level operations
             base.OnCollisionEnter2D(otherCollider);
         }
-        else if(spikeStatus == Status.DOWN)
-        {
-            Debug.Log("HOLES!");
-        }
     }
 
     public void SetStatus(Status toStatus)
