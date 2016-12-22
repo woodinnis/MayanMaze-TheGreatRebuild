@@ -7,7 +7,7 @@ public class Traps : MonoBehaviour {
     private LevelManager levelManager;
 
 	// Use this for initialization
-	void Start () {
+	public void Start () {
 
         levelManager = FindObjectOfType<LevelManager>();
         player = FindObjectOfType<Player>();
