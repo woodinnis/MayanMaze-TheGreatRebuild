@@ -2,27 +2,28 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Tutorial : MonoBehaviour {
+public class Tutorial : GameUI {
 
     public string[] checkLevels;
     public Text[] tutorialMessages;
 
-    private LevelManager levelManager;
     private Text text;
+    private CountdownTimer countDown;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
-        levelManager = GameObject.FindObjectOfType<LevelManager>();
+        base.Start();
+
         text = GetComponentInChildren<Text>();
+        countDown = FindObjectOfType<CountdownTimer>();
 
         DisplayCurrentTutorial();
     }
 
     private void Update()
     {
-        CountdownTimer countDown = FindObjectOfType<CountdownTimer>();
-
+        //  Remove tutorial from screen when walk countdown reaches 0
         if (countDown.countdownTarget <= 0f)
         {
             GameObject[] myCanvas = GameObject.FindGameObjectsWithTag("Tutorial");
@@ -34,7 +35,7 @@ public class Tutorial : MonoBehaviour {
 
     private void DisplayCurrentTutorial()
     {
-        string currentLevel = levelManager.GetCurrentLevel();
+        string currentLevel = GameUI_LevelManager.GetCurrentLevel();
 
         int index = 0;
 
