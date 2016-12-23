@@ -8,28 +8,22 @@ public class Tutorial : GameUI {
     public Text[] tutorialMessages;
 
     private Text text;
-    private CountdownTimer countDown;
-
+    
     // Use this for initialization
     void Start ()
     {
-        //base.Start();
-
         text = GetComponentInChildren<Text>();
-        countDown = FindObjectOfType<CountdownTimer>();
 
+        print(GetComponentInParent<Canvas>().name);
         DisplayCurrentTutorial();
     }
 
-    private void Update()
+    void Update()
     {
-        //  Remove tutorial from screen when walk countdown reaches 0
-        if (countDown.countdownTarget <= 0f)
+        //  Remove tutorial from screen when GameUI Countdown Timer reaches 0
+        if (GameUI_CountdownTimer.countdownTarget <= 0f)
         {
-            GameObject[] myCanvas = GameObject.FindGameObjectsWithTag("Tutorial");
-
-            foreach (GameObject mC in myCanvas)
-                mC.SetActive(false);
+            DisableTutorial();
         }
     }
 
@@ -50,10 +44,19 @@ public class Tutorial : GameUI {
             }
             ++index;
         }
-        if(index >= tutorialMessages.Length)
+
+        //  If no tutorial message can be found for this level, disable the tutorial screen
+        if (index >= tutorialMessages.Length)
         {
-            Canvas myCanvas = GetComponentInParent<Canvas>();
-            myCanvas.enabled = false;
+            DisableTutorial();
         }
     }
+
+    //  Disable the tutorial message
+    private static void DisableTutorial()
+    {
+        GameObject disableMe = GameObject.FindGameObjectWithTag("Tutorial");
+        disableMe.SetActive(false);
+    }
+
 }
