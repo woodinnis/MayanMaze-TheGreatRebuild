@@ -5,7 +5,7 @@ public class Player : MonoBehaviour {
 
     public enum Direction { UP, DOWN, LEFT, RIGHT };
 
-    public float playerMoveSpeed;
+    public float moveSpeed;
     public Direction playerDirection;
 
     public Sprite upWalkGraphic;
@@ -13,10 +13,14 @@ public class Player : MonoBehaviour {
     public Sprite leftWalkGraphic;
     public Sprite rightWalkGraphic;
 
+    [HideInInspector]
+    public float playerMoveSpeed;
+
     private SpriteRenderer playerSpriteRenderer;
     private bool isMovingTowards = true;
 
     private LevelManager levelManager;
+    private CountdownTimer Player_CountdownTimer;
 
     // Use this for initialization
     void Start () {
@@ -24,6 +28,21 @@ public class Player : MonoBehaviour {
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
 
         ChangePlayerDirection(playerDirection);
+        Player_CountdownTimer = FindObjectOfType<CountdownTimer>();
+
+        print(Player_CountdownTimer.name);
+
+        //  Player begins the level standing still
+        playerMoveSpeed = 0f;
+    }
+
+    void Update()
+    {
+        //  When the countdown finishes player starts moving
+        if(Player_CountdownTimer.countdownTarget <= 0f)
+        {
+            playerMoveSpeed = moveSpeed;
+        }
     }
 
     // Update is called once per frame

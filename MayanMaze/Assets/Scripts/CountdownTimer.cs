@@ -42,7 +42,7 @@ public class CountdownTimer : MonoBehaviour {
             //pauseButton = FindObjectOfType<GeneralButton>();
 
             //  Disable the player
-            currentPlayer = FindObjectOfType<Player>();
+            //  currentPlayer = FindObjectOfType<Player>();
 //            currentPlayer.enabled = false;
 
             //  Enable the timer text
