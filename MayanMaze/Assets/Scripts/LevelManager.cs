@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour {
     public float autoLoadNextLevelAfter;
     public string startScene;
     public string finalScene;
+    public int buildIndexBuffer;
 
     void Awake()
     {
@@ -34,10 +35,20 @@ public class LevelManager : MonoBehaviour {
 	public void QuitRequest(){
 		Application.Quit();
 	}
-	
-    public string GetCurrentLevel()
+
+    public int GetCurrentLevelIndex()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
+    }
+
+    public string GetCurrentLevelName()
     {
         return SceneManager.GetActiveScene().name;
+    }
+
+    public int GetCurrentLevelNumber()
+    {
+        return SceneManager.GetActiveScene().buildIndex - buildIndexBuffer;
     }
 
 	public void LoadNextLevel(){

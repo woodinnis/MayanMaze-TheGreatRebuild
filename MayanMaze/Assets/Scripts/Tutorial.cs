@@ -13,7 +13,7 @@ public class Tutorial : GameUI {
     // Use this for initialization
     void Start ()
     {
-        base.Start();
+        //base.Start();
 
         text = GetComponentInChildren<Text>();
         countDown = FindObjectOfType<CountdownTimer>();
@@ -35,7 +35,7 @@ public class Tutorial : GameUI {
 
     private void DisplayCurrentTutorial()
     {
-        string currentLevel = GameUI_LevelManager.GetCurrentLevel();
+        string currentLevel = GameUI_LevelManager.GetCurrentLevelName();
 
         int index = 0;
 

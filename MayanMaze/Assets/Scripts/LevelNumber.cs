@@ -1,42 +1,42 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class LevelNumber : MonoBehaviour {
+public class LevelNumber : GameUI {
 
     public int startAtLevel;
     public int buildIndexBuffer;
 
     private int startAtSceneIndex;
+    private Text text;
 
-	// Use this for initialization
-	void Start ()
-    {
-        //  Set the scene index to begin counting levels based on the level number
-        startAtSceneIndex = startAtLevel + buildIndexBuffer;
-    }
+    private const string levelDisplayString = "Level: ";
 
-    void OnLevelWasLoaded()
-    {
-        //  Call at the beginning of each level
-        DisplayCurrentLevel();
-    }
-
-    private void DisplayCurrentLevel()
+    void Start()
     {
         //  Acquire the text component of the Level indicator
-        Text text;
-        text = GetComponent<Text>();
+        text = GetComponentInChildren<Text>();
 
-        //  Get the current scene index
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        //  Display the current level
-        if (currentSceneIndex >= startAtSceneIndex)
+        DisplayCurrentLevel();
+    }
+     
+    void Update()
+    {
+        //  When the GameUI countdown timer reaches 0, disable the level number
+        if (GameUI_CountdownTimer.countdownTarget <= 0f)
         {
-            string testLevel = (currentSceneIndex - buildIndexBuffer).ToString();
-            text.text = testLevel;
+            text.enabled = false;
+        }
+    }
+
+    //  Display the current level number on screen
+    private void DisplayCurrentLevel()
+    {
+        //  If the current Scene index is within the scope of the level counter display the level number
+        if(GameUI_LevelManager.GetCurrentLevelIndex() >= startAtLevel)
+        {
+            int currentLevelNumber = GameUI_LevelManager.GetCurrentLevelNumber();
+            text.text = (levelDisplayString + currentLevelNumber.ToString());
         }
     }
 }
