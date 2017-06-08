@@ -2,30 +2,34 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Tutorial : MonoBehaviour {
+public class Tutorial : GameUI {
 
     public string[] checkLevels;
     public Text[] tutorialMessages;
 
-    private LevelManager levelManager;
     private Text text;
-    private Canvas tutorialCanvas;
-    private PauseScreen pauseScreen;
-
-	// Use this for initialization
-	void Start ()
+    
+    // Use this for initialization
+    void Start ()
     {
-        levelManager = GameObject.FindObjectOfType<LevelManager>();
-        text = GetComponent<Text>();
-        tutorialCanvas = GetComponentInParent<Canvas>();
-        pauseScreen = FindObjectOfType<PauseScreen>();
+        text = GetComponentInChildren<Text>();
 
+        print(GetComponentInParent<Canvas>().name);
         DisplayCurrentTutorial();
+    }
+
+    void Update()
+    {
+        //  Remove tutorial from screen when GameUI Countdown Timer reaches 0
+        if (GameUI_CountdownTimer.countdownTarget <= 0f)
+        {
+            DisableTutorial();
+        }
     }
 
     private void DisplayCurrentTutorial()
     {
-        string currentLevel = levelManager.GetCurrentLevel();
+        string currentLevel = GameUI_LevelManager.GetCurrentLevelName();
 
         int index = 0;
 
@@ -35,15 +39,24 @@ public class Tutorial : MonoBehaviour {
             //  When a matching level name and tutorial message are found, display the message.
             if (level == currentLevel)
             {
-                //pauseScreen.PauseFunction();
                 text.text = tutorialMessages[index].text;
                 break;
             }
             ++index;
         }
-        if(index >= tutorialMessages.Length)
+
+        //  If no tutorial message can be found for this level, disable the tutorial screen
+        if (index >= tutorialMessages.Length)
         {
-            tutorialCanvas.enabled = false;
+            DisableTutorial();
         }
     }
+
+    //  Disable the tutorial message
+    private static void DisableTutorial()
+    {
+        GameObject disableMe = GameObject.FindGameObjectWithTag("Tutorial");
+        disableMe.SetActive(false);
+    }
+
 }
