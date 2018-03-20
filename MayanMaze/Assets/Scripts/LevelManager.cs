@@ -9,6 +9,11 @@ public class LevelManager : MonoBehaviour {
     public string finalScene;
     public int buildIndexBuffer;
 
+    [SerializeField]
+    int nextSceneBuildIndex;
+    [SerializeField]
+    int finalSceneBuildIndex;
+
     void Awake()
     {
         DontDestroyOnLoad(this.transform);
@@ -20,13 +25,13 @@ public class LevelManager : MonoBehaviour {
     }
 
     //  This event is being deprecated
-    void OnLevelWasLoaded()
-    {
-        if(SceneManager.GetActiveScene().name == finalScene)
-        {
-            Invoke("GoToStart", autoLoadNextLevelAfter);
-        }
-    }
+    //void OnLevelWasLoaded()
+    //{
+    //    if(SceneManager.GetActiveScene().name == finalScene)
+    //    {
+    //        Invoke("GoToStart", autoLoadNextLevelAfter);
+    //    }
+    //}
 
 	public void LoadLevel(string name){
         SceneManager.LoadScene(name);
@@ -52,7 +57,16 @@ public class LevelManager : MonoBehaviour {
     }
 
 	public void LoadNextLevel(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        // Get indices of next and final scenes in build index
+        nextSceneBuildIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        finalSceneBuildIndex = SceneManager.GetSceneByName(finalScene).buildIndex;
+
+        // If index value of next scene is valid, load next scene else return to start
+        if (nextSceneBuildIndex < finalSceneBuildIndex)
+            SceneManager.LoadScene(nextSceneBuildIndex);//SceneManager.GetActiveScene().buildIndex + 1);
+        else
+            Invoke("GoToStart", autoLoadNextLevelAfter);
     }
 
     //  Restart a level
