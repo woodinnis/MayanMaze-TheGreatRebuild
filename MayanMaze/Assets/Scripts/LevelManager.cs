@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour {
     public float autoLoadNextLevelAfter;
     public string startScene;
     public string finalScene;
+    public string[] levelList;
     public int buildIndexBuffer;
 
     [SerializeField]
@@ -53,6 +54,18 @@ public class LevelManager : MonoBehaviour {
 
     public int GetCurrentLevelNumber()
     {
+        string currentLevelName = GetCurrentLevelName();
+        int currentLevelIndex = 0;
+
+        for(int i = 0; i < levelList.Length; i++)
+        {
+            if (levelList[i] == currentLevelName)
+                currentLevelIndex = i;
+        }
+        //Debug.Log("Current Level Name " + currentLevelName);
+        //Debug.Log("Current Level Index " + currentLevelIndex);
+        //Debug.Log("Current Level Number " + currentLevelIndex + 1);
+
         return SceneManager.GetActiveScene().buildIndex - buildIndexBuffer;
     }
 
