@@ -27,7 +27,7 @@ public class GeneralButton : MonoBehaviour {
             case ButtonType.MENU:
                 {
                     LevelManager levelManager = FindObjectOfType<LevelManager>();
-                    levelManager.GoToStart();
+                    levelManager.LoadStartMenu();
                     break;
                 }
             case ButtonType.PAUSE:

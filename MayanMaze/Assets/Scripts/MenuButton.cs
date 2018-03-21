@@ -20,6 +20,6 @@ public class MenuButton : MonoBehaviour {
 
     void TaskOnClick()
     {
-        levelManager.GoToStart();
+        levelManager.LoadStartMenu();
     }
 }

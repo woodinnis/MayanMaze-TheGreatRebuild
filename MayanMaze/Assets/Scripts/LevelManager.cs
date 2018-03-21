@@ -8,7 +8,6 @@ public class LevelManager : MonoBehaviour {
     public string startScene;
     public string finalScene;
     public string[] levelList;
-    public int buildIndexBuffer;
 
     [SerializeField]
     int nextSceneBuildIndex;
@@ -17,30 +16,18 @@ public class LevelManager : MonoBehaviour {
 
     void Awake()
     {
-        DontDestroyOnLoad(this.transform);
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start() {
         
-        Invoke("LoadNextLevel", autoLoadNextLevelAfter);
+        Invoke("LoadStartMenu", autoLoadNextLevelAfter);
     }
 
-    //  This event is being deprecated
-    //void OnLevelWasLoaded()
-    //{
-    //    if(SceneManager.GetActiveScene().name == finalScene)
-    //    {
-    //        Invoke("GoToStart", autoLoadNextLevelAfter);
-    //    }
-    //}
-
-	public void LoadLevel(string name){
-        SceneManager.LoadScene(name);
-	}
-	
-	public void QuitRequest(){
-		Application.Quit();
-	}
+    public void LoadStartMenu()
+    {
+        SceneManager.LoadScene(startScene);
+    }
 
     public int GetCurrentLevelIndex()
     {
@@ -52,6 +39,8 @@ public class LevelManager : MonoBehaviour {
         return SceneManager.GetActiveScene().name;
     }
 
+    // Returns the LevelList array index of the currently loaded level
+    // Checks the Level Name against all entries in the LevelList using a for loop and returns the valid array index
     public int GetCurrentLevelNumber()
     {
         string currentLevelName = GetCurrentLevelName();
@@ -62,37 +51,26 @@ public class LevelManager : MonoBehaviour {
             if (levelList[i] == currentLevelName)
                 currentLevelIndex = i;
         }
-        //Debug.Log("Current Level Name " + currentLevelName);
-        //Debug.Log("Current Level Index " + currentLevelIndex);
-        //Debug.Log("Current Level Number " + currentLevelIndex + 1);
-
-        return SceneManager.GetActiveScene().buildIndex - buildIndexBuffer;
+        
+        return currentLevelIndex;
     }
 
+    // Load the next level in the Level List array, 
+    // Checks the currently loaded level against finalScene and loads the next LevelList entry until the check returns true
 	public void LoadNextLevel(){
 
-        // Get indices of next and final scenes in build index
-        nextSceneBuildIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        finalSceneBuildIndex = SceneManager.GetSceneByName(finalScene).buildIndex;
-
-        // If index value of next scene is valid, load next scene else return to start
-        if (nextSceneBuildIndex < finalSceneBuildIndex)
-            SceneManager.LoadScene(nextSceneBuildIndex);//SceneManager.GetActiveScene().buildIndex + 1);
+        if (GetCurrentLevelName() != finalScene)
+        {
+            SceneManager.LoadScene(GetCurrentLevelNumber() + 1);
+        }
         else
-            Invoke("GoToStart", autoLoadNextLevelAfter);
+            LoadStartMenu();
     }
 
-    //  Restart a level
+    //  Get the active scene and reload it
+    //  Should probably see if there's a way to do this with ASYNC for optimization at some point
     public void RestartLevel()
     {
-        //  Reload the scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-    }
-
-    //  Return to the Start menu
-    public void GoToStart()
-    {
-        SceneManager.LoadScene(startScene);
     }
 }
