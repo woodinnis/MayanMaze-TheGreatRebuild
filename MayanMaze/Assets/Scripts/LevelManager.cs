@@ -34,9 +34,54 @@ public class LevelManager : MonoBehaviour {
         return SceneManager.GetActiveScene().buildIndex;
     }
 
+    int GetNextLevelIndex()
+    {
+
+        int nextLevelIndex = 0;
+        int currentLevelIndex = GetCurrentLevelNumber();
+
+        Debug.Log("Current Level Index: " + currentLevelIndex);
+
+        for (int i = currentLevelIndex; i < levelList.Length; i++)
+        {
+            Debug.Log(levelList[i]);
+            
+            // This section correctly loads the names of the next levelList entry but still isn't checking if the name is valid in the build settings
+            if (SceneManager.GetSceneByName(levelList[i]).IsValid())
+            {
+                nextLevelIndex = i + 1;
+                Debug.Log("Next Valid Scene " + levelList[nextLevelIndex] + " at index " + nextLevelIndex);
+                break;
+            }
+            else
+            {
+                Debug.Log("No Valid Scene at index " + i);
+            }
+        }
+
+        //if (currentLevelName != levelList[currentBuildIndex])
+        //{
+        //    Debug.Log("Invalid Level " + currentLevelName + " at Index " + currentBuildIndex);
+        //    for (int i = currentBuildIndex; i < levelList.Length; i++)
+        //    {
+        //        if (levelList[i] == currentLevelName)
+        //        {
+        //            currentBuildIndex = i;
+        //            Debug.Log("Level Index Corrected");
+        //        }
+        //    }
+        //}
+        //else
+        //    Debug.Log("Current Level " + currentLevelName + " at Index " + currentBuildIndex);
+
+        return nextLevelIndex;
+    }
+
     public string GetCurrentLevelName()
     {
-        return SceneManager.GetActiveScene().name;
+        string currentLevelName = SceneManager.GetActiveScene().name;
+
+        return currentLevelName;
     }
 
     // Returns the LevelList array index of the currently loaded level
@@ -57,11 +102,16 @@ public class LevelManager : MonoBehaviour {
 
     // Load the next level in the Level List array, 
     // Checks the currently loaded level against finalScene and loads the next LevelList entry until the check returns true
+    //
+    // An exception is required for levels included in the LevelList, but not in the Build.
+    // SceneManager.LoadScene() uses Build Index or Scene Names
 	public void LoadNextLevel(){
 
         if (GetCurrentLevelName() != finalScene)
         {
-            SceneManager.LoadScene(GetCurrentLevelNumber() + 1);
+            int nLevel = GetNextLevelIndex();
+
+            SceneManager.LoadScene(levelList[nLevel]);//GetCurrentLevelNumber() + 1);
         }
         else
             LoadStartMenu();
