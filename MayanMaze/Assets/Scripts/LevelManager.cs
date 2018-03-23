@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour {
 
@@ -8,6 +10,7 @@ public class LevelManager : MonoBehaviour {
     public string startScene;
     public string finalScene;
     public string[] levelList;
+    public List<string> Levels = new List<string>();
 
     [SerializeField]
     int nextSceneBuildIndex;
@@ -20,7 +23,14 @@ public class LevelManager : MonoBehaviour {
     }
 
     void Start() {
-        
+
+        // Load up the Levels List with all enabled scenes.
+        foreach(EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
+        {
+            if(scene.enabled)
+                Levels.Add(EditorBuildSettings.scenes.ToString());
+        }
+
         Invoke("LoadStartMenu", autoLoadNextLevelAfter);
     }
 
@@ -123,4 +133,5 @@ public class LevelManager : MonoBehaviour {
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
 }
