@@ -21,14 +21,14 @@ public class LevelManager : MonoBehaviour {
     {
         DontDestroyOnLoad(gameObject);
     }
-
+    
     void Start() {
 
         // Load up the Levels List with all enabled scenes.
         foreach(EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
         {
             if(scene.enabled)
-                Levels.Add(EditorBuildSettings.scenes.ToString());
+                Levels.Add(scene.path.ToString());
         }
 
         Invoke("LoadStartMenu", autoLoadNextLevelAfter);
@@ -50,22 +50,22 @@ public class LevelManager : MonoBehaviour {
         int nextLevelIndex = 0;
         int currentLevelIndex = GetCurrentLevelNumber();
 
-        Debug.Log("Current Level Index: " + currentLevelIndex);
+//        Debug.Log("Current Level Index: " + currentLevelIndex);
 
         for (int i = currentLevelIndex; i < levelList.Length; i++)
         {
-            Debug.Log(levelList[i]);
+            //Debug.Log(levelList[i]);
             
             // This section correctly loads the names of the next levelList entry but still isn't checking if the name is valid in the build settings
             if (SceneManager.GetSceneByName(levelList[i]).IsValid())
             {
                 nextLevelIndex = i + 1;
-                Debug.Log("Next Valid Scene " + levelList[nextLevelIndex] + " at index " + nextLevelIndex);
+                //Debug.Log("Next Valid Scene " + levelList[nextLevelIndex] + " at index " + nextLevelIndex);
                 break;
             }
             else
             {
-                Debug.Log("No Valid Scene at index " + i);
+               // Debug.Log("No Valid Scene at index " + i);
             }
         }
 
@@ -101,12 +101,14 @@ public class LevelManager : MonoBehaviour {
         string currentLevelName = GetCurrentLevelName();
         int currentLevelIndex = 0;
 
-        for(int i = 0; i < levelList.Length; i++)
+        // Verify index of current level in the Levels list
+        foreach (string level in Levels)
         {
-            if (levelList[i] == currentLevelName)
-                currentLevelIndex = i;
+            if (level.Contains(currentLevelName))
+            {
+                currentLevelIndex = Levels.IndexOf(level);
+            }
         }
-        
         return currentLevelIndex;
     }
 
