@@ -9,7 +9,6 @@ public class LevelManager : MonoBehaviour {
     public float autoLoadNextLevelAfter;
     public string startScene;
     public string finalScene;
-    public string[] levelList;
     public List<string> Levels = new List<string>();
 
     [SerializeField]
@@ -30,7 +29,11 @@ public class LevelManager : MonoBehaviour {
         {
             if (scene.enabled)
             {
-                Levels.Add(scene.path.ToString());
+                // Trim the Assets folder, and .unity extentions from the strings
+                string st = scene.path.ToString().Replace("Assets/", "");
+                st = st.Replace(".unity", "");
+
+                Levels.Add(st);
             }
         }
 
@@ -45,7 +48,6 @@ public class LevelManager : MonoBehaviour {
     /// <summary>
     /// All functions in the GetCurrentFunctions region are used to obtain and return current level information
     /// </summary>
-    /// <returns></returns>
     #region GetCurrentFunctions
 
     public int GetCurrentLevelIndex()
@@ -76,6 +78,15 @@ public class LevelManager : MonoBehaviour {
         return currentLevelIndex;
     }
 
+    #endregion
+
+    #region NextLevelFunctions
+
+    /// <summary>
+    /// If incrementing the currentLevelIndex by 1 does not go beyond the Levels list capacity 
+    /// assign nextLevelIndex the value of currentLevelIndex + 1
+    /// </summary>
+    /// <returns>nextLevelIndex</returns>
     int GetNextLevelIndex()
     {
         int currentLevelIndex = GetCurrentLevelNumber();
@@ -85,46 +96,27 @@ public class LevelManager : MonoBehaviour {
             nextLevelIndex = currentLevelIndex + 1;
 
         return nextLevelIndex;
-        //Debug.Log("Current Level Index: " + currentLevelIndex);
-
-        //for (int i = currentLevelIndex; i < levelList.Length; i++)
-        //{
-        //    //Debug.Log(levelList[i]);
-
-        //    // This section correctly loads the names of the next levelList entry but still isn't checking if the name is valid in the build settings
-        //    if (SceneManager.GetSceneByName(levelList[i]).IsValid())
-        //    {
-        //        nextLevelIndex = i + 1;
-        //        //Debug.Log("Next Valid Scene " + levelList[nextLevelIndex] + " at index " + nextLevelIndex);
-        //        break;
-        //    }
-        //    else
-        //    {
-        //       // Debug.Log("No Valid Scene at index " + i);
-        //    }
-        //}
     }
 
-    #endregion
-
+    /// <summary>
+    /// If the value returned by GetCurrentLevelName() does not match finalScene, procede to the next level, 
+    /// otherwise return to the main menu
+    /// </summary>
     public void LoadNextLevel(){
 
         if (GetCurrentLevelName() != finalScene)
         {
             int nLevel = GetNextLevelIndex();
 
-            // I'd like to find a more efficient way to clean up the strings. Preferably when they get loaded into the list.
             string nextScene = Levels[nLevel];
-            nextScene = nextScene.Replace(".unity", "");
-            nextScene = nextScene.Replace("Assets/", "");
             SceneManager.LoadScene(nextScene);
         }
         else
             LoadStartMenu();
     }
 
-    //  Get the active scene and reload it
-    //  Should probably see if there's a way to do this with ASYNC for optimization at some point
+    #endregion
+
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
