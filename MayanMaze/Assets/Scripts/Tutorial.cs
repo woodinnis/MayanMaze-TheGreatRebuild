@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Tutorial : GameUI {
 
+    public string scenesFolder;
     public string[] checkLevels;
     public Text[] tutorialMessages;
 
@@ -30,14 +31,15 @@ public class Tutorial : GameUI {
     private void DisplayCurrentTutorial()
     {
         string currentLevel = GameUI_LevelManager.GetCurrentLevelName();
-
+        Debug.Log("Current Level: " + currentLevel);
         int index = 0;
 
         //  Search each array element
         foreach (string level in checkLevels)
         {
+            Debug.Log("Checking Level: " + scenesFolder + level);
             //  When a matching level name and tutorial message are found, display the message.
-            if (level == currentLevel)
+            if (scenesFolder + level == currentLevel)
             {
                 text.text = tutorialMessages[index].text;
                 break;
