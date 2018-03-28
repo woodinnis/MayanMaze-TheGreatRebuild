@@ -3,6 +3,10 @@ using System.Collections;
 
 public class GameStateManager : MonoBehaviour {
 
+    public enum GameState { MENU, PLAY, PAUSE, COMPLETE, GAMEOVER}
+
+    public GameState gameState;
+
     // Keep the GameStateManager in all subsequent scenes
     private void Awake()
     {

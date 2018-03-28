@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour {
     //  Declare private variables
     private Button button;
     private LevelManager levelManager;
-
+    
 	// Use this for initialization
 	void Start () {
 
@@ -25,8 +25,12 @@ public class MainMenu : MonoBehaviour {
         {
             //  For the Start button
             case "StartButton":
-                levelManager.LoadNextLevel();
-                break;
+                {
+                    levelManager.LoadNextLevel();
+                    // Set the game state to play upon pressing the start button
+                    GameObject.FindObjectOfType<GameStateManager>().gameState = GameStateManager.GameState.PLAY;
+                    break;
+                }
             //  For the Quit button
             case "QuitButton":
                 print("I QUIT!");
